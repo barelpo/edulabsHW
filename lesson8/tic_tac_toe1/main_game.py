@@ -5,7 +5,7 @@ print_greeting()
 
 player1, player2 = get_names()
 
-turn_counter = 0
+turn_counter: int = 0
 
 player_char_dict = {
     player1: 'X',
@@ -15,6 +15,7 @@ player_char_dict = {
 board = initialize_board()
 
 
+# game course
 while get_winner(board) is None and is_game_stuck(board) is None:
     print_board(board)
     if turn_counter % 2 == 0:
@@ -28,6 +29,7 @@ while get_winner(board) is None and is_game_stuck(board) is None:
     turn_counter += 1
 
 
+# game ends according to winner or game stuck with relevant message
 winner = get_winner(board)
 game_stuck = is_game_stuck(board)
 print_board(board)

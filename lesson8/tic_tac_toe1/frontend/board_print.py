@@ -1,3 +1,4 @@
+# prints current state of the board before each turn and at the end of game
 def print_board(board: list[list]):
     for i in range(0, 6 * len(board) + 4):
         if i % 6 == 0 and i > 0:
@@ -6,7 +7,7 @@ def print_board(board: list[list]):
             print(' ', end='')
 
     print('\n')
-    row_counter = 1
+    row_counter: int = 1
 
     for i in range(0, 2 * len(board)):
         if i % 2 == 0:
