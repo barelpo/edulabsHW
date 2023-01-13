@@ -35,3 +35,4 @@ if __name__ == '__main__':
     test_is_game_stuck_diagonal2()
     test_is_game_stuck_diagonal3()
     test_is_game_stuck_diagonal4()
+    test_is_game_stuck_diagonal5()

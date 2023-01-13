@@ -78,11 +78,7 @@ def check_winner_diagonal(board: list[list]) -> str | None:
 
 # checks if the game is stuck according to current board state, using the three functions below
 def is_game_stuck(board: list[list]) -> bool | None:
-    if is_game_stuck_row(board):
-        return True
-    elif is_game_stuck_column(board):
-        return True
-    elif is_game_stuck_diagonal(board):
+    if is_game_stuck_row(board) and is_game_stuck_column(board) and is_game_stuck_diagonal(board):
         return True
     else:
         return
