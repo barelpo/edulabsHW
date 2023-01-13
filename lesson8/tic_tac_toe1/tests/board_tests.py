@@ -21,7 +21,7 @@ def test_check_winner_column2():
     ]
     ret_val = check_winner_column(board)
     assert ret_val == 'X', \
-        'X shoul be the winner'
+        'X should be the winner'
 
 
 def test_check_winner_column3():
@@ -32,7 +32,7 @@ def test_check_winner_column3():
     ]
     ret_val = check_winner_column(board)
     assert ret_val == 'O', \
-        'O shoul be the winner'
+        'O should be the winner'
 
 
 def test_check_winner_column4():
@@ -44,7 +44,7 @@ def test_check_winner_column4():
     ]
     ret_val = check_winner_column(board)
     assert ret_val == 'X', \
-        'X shoul be the winner'
+        'X should be the winner'
 
 
 def test_check_winner_column5():
@@ -55,7 +55,18 @@ def test_check_winner_column5():
     ]
     ret_val = check_winner_column(board)
     assert ret_val is None, \
-        'no winner shoul be detected'
+        'no winner should be detected'
+
+
+def test_check_winner_column6():
+    board = [
+        ['X', 'O', 'O'],
+        ['X', 'X', 'O'],
+        ['O', 'X', None]
+    ]
+    ret_val = check_winner_column(board)
+    assert ret_val is None, \
+        'no winner should be detected'
 
 
 # check row winner
@@ -67,7 +78,7 @@ def test_check_winner_row1():
     ]
     ret_val = check_winner_row(board)
     assert ret_val is None, \
-        'no winner shoul be detected'
+        'no winner should be detected'
 
 
 def test_check_winner_row2():
@@ -79,7 +90,7 @@ def test_check_winner_row2():
     ]
     ret_val = check_winner_row(board)
     assert ret_val == 'O', \
-        'O shoul be the winner'
+        'O should be the winner'
 
 
 def test_check_winner_row3():
@@ -92,7 +103,7 @@ def test_check_winner_row3():
     ]
     ret_val = check_winner_row(board)
     assert ret_val == 'X', \
-        'Xshould be the winner'
+        'X should be the winner'
 
 
 def test_check_winner_row4():
@@ -121,6 +132,17 @@ def test_check_winner_row5():
         'no winner should be detected'
 
 
+def test_check_winner_row6():
+    board = [
+        ['X', 'O', 'O'],
+        ['X', 'X', 'O'],
+        ['O', 'X', None]
+    ]
+    ret_val = check_winner_row(board)
+    assert ret_val is None, \
+        'no winner should be detected'
+
+
 # check diagonal winner
 def test_check_winner_diagonal1():
     board = [
@@ -130,7 +152,7 @@ def test_check_winner_diagonal1():
     ]
     ret_val = check_winner_diagonal(board)
     assert ret_val is None, \
-        'no winner shoul be detected'
+        'no winner should be detected'
 
 
 def test_check_winner_diagonal2():
@@ -142,7 +164,7 @@ def test_check_winner_diagonal2():
     ]
     ret_val = check_winner_diagonal(board)
     assert ret_val == 'O', \
-        'O shoul be the winner'
+        'O should be the winner'
 
 
 def test_check_winner_diagonal3():
@@ -182,3 +204,149 @@ def test_check_winner_diagonal5():
     ret_val = check_winner_diagonal(board)
     assert ret_val == 'O', \
         'no winner should be detected'
+
+
+def test_check_winner_diagonal6():
+    board = [
+        ['X', 'O', 'O'],
+        ['X', 'X', 'O'],
+        ['O', 'X', None]
+    ]
+    ret_val = check_winner_diagonal(board)
+    assert ret_val is None, \
+        'no winner should be detected'
+
+
+def test_is_game_stuck_row1():
+    board5 = [
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None]
+    ]
+    ret_val = is_game_stuck_row(board5)
+    assert ret_val is None, 'game is not stuck'
+
+
+def test_is_game_stuck_row2():
+    board2 = [
+        ['X', 'O', None, None, None],
+        [None, None, 'O', None, 'X'],
+        ['X', 'X', 'X', 'X', 'O'],
+        ['O', None, 'X', 'O', None],
+        [None, 'O', None, 'X', None]
+    ]
+    ret_val = is_game_stuck_row(board2)
+    assert ret_val is True, 'game is stuck'
+
+
+def test_is_game_stuck_column1():
+    board2 = [
+        ['X', 'O', 'O', None, None],
+        [None, None, 'O', None, 'X'],
+        ['X', 'X', 'X', 'X', 'O'],
+        ['O', None, 'X', 'O', None],
+        [None, 'O', None, 'X', None]
+    ]
+    ret_val = is_game_stuck_column(board2)
+    assert ret_val is True, 'game is stuck'
+
+
+def test_is_game_stuck_column2():
+    board2 = [
+        ['X', 'O', 'O', None, None],
+        [None, None, 'O', None, 'X'],
+        ['X', 'X', 'X', 'X', 'O'],
+        ['O', None, 'X', 'X', None],
+        [None, 'O', None, 'X', None]
+    ]
+    ret_val = is_game_stuck_column(board2)
+    assert ret_val is None, 'game is not stuck'
+
+
+def test_is_game_stuck_column3():
+    board5 = [
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None]
+    ]
+    ret_val = is_game_stuck_column(board5)
+    assert ret_val is None, 'game is not stuck'
+
+
+def test_is_game_stuck_column4():
+    board5 = [
+        ['X', None, None, None, 'O', None, None, None],
+        [None, None, 'X', 'O', None, None, 'O', None],
+        [None, None, None, None, None, 'X', None, 'O'],
+        [None, 'O', None, 'X', None, 'O', None, None],
+        [None, None, 'O', None, 'X', None, None, 'O'],
+        [None, None, None, None, None, None, None, 'X'],
+        [None, 'X', None, None, 'O', None, 'O', None],
+        ['O', None, None, None, None, None, 'X', None]
+    ]
+    ret_val = is_game_stuck_column(board5)
+    assert ret_val is True, 'game is stuck'
+
+
+def test_is_game_stuck_diagonal1():
+    board2 = [
+        ['X', 'O', 'O', None, None],
+        [None, None, 'O', None, 'X'],
+        ['X', 'X', 'X', 'X', 'O'],
+        ['O', None, 'X', 'O', None],
+        ['O', 'O', None, 'X', None]
+    ]
+    ret_val = is_game_stuck_diagonal(board2)
+    assert ret_val is True, 'game is stuck'
+
+
+def test_is_game_stuck_diagonal2():
+    board2 = [
+        ['X', 'O', 'O', None, None],
+        [None, None, 'O', 'O', 'X'],
+        ['X', 'X', 'X', 'X', 'O'],
+        ['O', None, 'X', 'X', None],
+        [None, 'O', None, 'X', None]
+    ]
+    ret_val = is_game_stuck_diagonal(board2)
+    assert ret_val is None, 'game is not stuck'
+
+
+def test_is_game_stuck_diagonal3():
+    board5 = [
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None, None]
+    ]
+    ret_val = is_game_stuck_diagonal(board5)
+    assert ret_val is None, 'game is not stuck'
+
+
+def test_is_game_stuck_diagonal4():
+    board5 = [
+        ['X', None, None, None, 'O', None, None, None],
+        [None, None, 'X', 'O', None, None, 'O', None],
+        [None, None, None, None, None, 'X', None, 'O'],
+        [None, 'O', None, 'X', None, 'O', None, None],
+        [None, None, 'O', None, 'X', None, None, 'O'],
+        [None, None, None, None, None, None, None, 'X'],
+        [None, 'X', None, None, 'O', None, 'O', None],
+        ['O', None, None, None, None, None, 'X', None]
+    ]
+    ret_val = is_game_stuck_diagonal(board5)
+    assert ret_val is True, 'game is stuck'
