@@ -9,8 +9,10 @@ def print_greeting():
 # gets players ames
 def get_names() -> tuple:
     while True:
-        player1: str = input("Please insert the name of player 1: ")
-        player2: str = input("Please insert the name of player 2: ")
+        player1: str = input("Please insert the name of player 1: ").strip()
+        player2: str = input("Please insert the name of player 2: ").strip()
+        player1 = player1[0].upper() + player1[1::].lower()
+        player2 = player2[0].upper() + player2[1::].lower()
         if validate_names(player1, player2):
             break
         else:
@@ -46,4 +48,3 @@ def print_win_message(char: str, names_to_char: dict):
     for key in names_to_char:
         if names_to_char[key] == char:
             print(f"Congratulations, {key} is the winner !!")
-
