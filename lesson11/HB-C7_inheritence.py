@@ -1,8 +1,7 @@
 class Apartment:
 
     def __init__(self, address: str, parking_type: str, rooms_num: int, size: float, floor: int, balcony: bool,
-                 is_penthouse: bool, is_villa: bool, monthly_municipal_tax: float, deal_state: str, pets_allowed: bool):
-        self._pets_allowed = pets_allowed
+                 is_penthouse: bool, is_villa: bool, monthly_municipal_tax: float, deal_state: str):
         self._deal_state = deal_state
         self._monthly_municipal_tax = monthly_municipal_tax
         self._is_villa = is_villa
@@ -27,7 +26,7 @@ class ApartmentForSale(Apartment):
                  is_penthouse: bool, is_villa: bool, monthly_municipal_tax: float, deal_state: str, pets_allowed: bool,
                  sale_price: float):
         super().__init__(address, parking_type, rooms_num, size, floor, balcony, is_penthouse, is_villa,
-                         monthly_municipal_tax, deal_state, pets_allowed)
+                         monthly_municipal_tax, deal_state)
         self._sale_price = sale_price
 
     def get_agency_fee(self):
@@ -37,11 +36,12 @@ class ApartmentForSale(Apartment):
 class ApartmentForRent(Apartment):
 
     def __init__(self, address: str, parking_type: str, rooms_num: int, size: float, floor: int, balcony: bool,
-                 is_penthouse: bool, is_villa: bool, monthly_municipal_tax: float, deal_state: str, pets_allowed: bool,
-                 rent_price_per_month: float):
+                 is_penthouse: bool, is_villa: bool, monthly_municipal_tax: float, deal_state: str,
+                 rent_price_per_month: float, pets_allowed: bool):
         super().__init__(address, parking_type, rooms_num, size, floor, balcony, is_penthouse, is_villa,
-                         monthly_municipal_tax, deal_state, pets_allowed)
+                         monthly_municipal_tax, deal_state)
         self.rent_price_per_month = rent_price_per_month
+        self.pets_allowed = pets_allowed
 
     def get_annual_rent_price(self):
         return self.rent_price_per_month * 12
