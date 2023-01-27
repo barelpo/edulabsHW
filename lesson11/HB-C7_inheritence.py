@@ -23,7 +23,7 @@ class Apartment:
 class ApartmentForSale(Apartment):
 
     def __init__(self, address: str, parking_type: str, rooms_num: int, size: float, floor: int, balcony: bool,
-                 is_penthouse: bool, is_villa: bool, monthly_municipal_tax: float, deal_state: str, pets_allowed: bool,
+                 is_penthouse: bool, is_villa: bool, monthly_municipal_tax: float, deal_state: str,
                  sale_price: float):
         super().__init__(address, parking_type, rooms_num, size, floor, balcony, is_penthouse, is_villa,
                          monthly_municipal_tax, deal_state)
