@@ -71,4 +71,3 @@ import datetime
 #
 # print(ex7("Wed"))
 
-ex7("Sun")
