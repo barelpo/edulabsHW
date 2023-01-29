@@ -3,11 +3,10 @@ import datetime
 
 class Table:
 
-    def __init__(self, table_id: int, seats_num: int, time_limit_str: str, table_location: str, less_pref_place: str = ''):
+    def __init__(self, table_id: int, seats_num: int, time_limit: datetime.timedelta, table_location: str,
+                 less_pref_place: str = ''):
         self._less_pref_place = less_pref_place
         self._table_location = table_location
-        hours_minutes = time_limit_str.split(':')
-        time_limit = datetime.timedelta(hours=int(hours_minutes[0]), minutes=int(hours_minutes[1]))
         self._time_limit = time_limit
         self._seats_num = seats_num
         self._table_id = table_id
@@ -41,5 +40,16 @@ class Table:
             return self._start_time + self._time_limit
         else:
             return False
+
+    def get_seats_num(self) -> int:
+        return self._seats_num
+
+    def get_time_left(self) -> datetime.timedelta:
+        time_left = self._start_time + self._time_limit - datetime.datetime.now()
+        return time_left
+
+    def update_time_limit(self, new_time_limit: datetime.timedelta) -> bool:
+        self._time_limit = new_time_limit
+        return True
 
 
