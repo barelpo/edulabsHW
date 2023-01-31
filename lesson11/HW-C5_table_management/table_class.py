@@ -52,4 +52,7 @@ class Table:
         self._time_limit = new_time_limit
         return True
 
+    def __str__(self):
+        return f"Table id: {self._table_id}\nSeats number: {self._seats_num}\nLocation: {self._table_location}"
+
 
