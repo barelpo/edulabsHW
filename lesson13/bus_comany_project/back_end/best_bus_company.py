@@ -35,9 +35,48 @@ class BestBusCompany:
             elif k == 'stops':
                 self._bus_route_log[route_num].set_stops(v)
 
-    def print_scheduled_rides(self, route_num: int):
-        return self._bus_route_log[route_num].get_scheduled_rides()
+    def print_scheduled_rides(self, route_num: int, role: str):
+        self._bus_route_log[route_num].print_scheduled_rides(role)
 
     def add_new_ride_for_route(self, route_num: int, origin_time: datetime.time, destination_time: datetime.time,
                                driver_name: str):
         self._bus_route_log[route_num].add_new_scheduled_ride(origin_time, destination_time, driver_name)
+
+    def search_route_origin_destination(self, param: str, search_word: str):
+        counter: int = 0
+        for k, v in self._bus_route_log.items():
+            if param == 'origin':
+                if v.get_origin() == search_word:
+                    print(v)
+                    v.print_scheduled_rides('customer')
+                    counter += 1
+            elif param == 'destination':
+                if v.get_destination() == search_word:
+                    print(v)
+                    v.print_scheduled_rides('customer')
+                    counter += 1
+
+        if counter == 0:
+            raise RouteNotExist()
+
+    def search_by_bus_stop(self, requested_stop: str):
+        counter = 0
+        for k, v in self._bus_route_log.items():
+            for stop in v.get_bus_stops():
+                if stop == requested_stop:
+                    print(v)
+                    v.print_scheduled_rides('customer')
+                    counter += 1
+        if counter == 0:
+            raise RouteNotExist()
+
+    def report_route_delay(self, ride_id: int):
+        count: int = 0
+        for k, v in self._bus_route_log.items():
+            try:
+                v.report_ride_delay(ride_id)
+                count += 1
+            except RideNotExist:
+                pass
+        if count == 0:
+            raise RideNotExist()

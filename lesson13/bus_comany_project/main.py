@@ -4,6 +4,7 @@ from front_end import *
 from lesson13.bus_comany_project.back_end.best_bus_company import *
 from lesson13.bus_comany_project.exceptions import *
 
+
 if __name__ == "__main__":
 
     if not os.path.exists('bus_company.pickle'):
@@ -12,7 +13,7 @@ if __name__ == "__main__":
         with open('bus_company.pickle', 'rb') as fh:
             bus_company = pickle.load(fh)
 
-    # try:
+    try:
         role: str = ''
         while role != "customer" and role != "manager":
             try:
@@ -42,13 +43,28 @@ if __name__ == "__main__":
 
                     elif action == 4:
                         route_num = get_route_num_from_user()
-                        print(bus_company.print_scheduled_rides(route_num))
+                        bus_company.print_scheduled_rides(route_num, 'manager')
                         new_ride_details = get_new_scheduled_ride()
                         if new_ride_details:
                             bus_company.add_new_ride_for_route(route_num, new_ride_details[0], new_ride_details[1],
                                                                new_ride_details[2])
                         else:
                             pass
+
+                elif role == 'customer':
+
+                    if action == 1 or action == 2:
+                        param, search_word = search_route_by_param()
+                        if param == 'line number':
+                            bus_company.print_specific_route(int(search_word))
+                            bus_company.print_scheduled_rides(int(search_word), 'customer')
+                        elif param == 'origin' or param == 'destination':
+                            bus_company.search_route_origin_destination(param, search_word)
+                        elif param == 'stop':
+                            bus_company.search_by_bus_stop(search_word.replace(" ", ""))
+                        if action == 2:
+                            ride_id = get_ride_id()
+                            bus_company.report_route_delay(ride_id)
 
             except NotValidAction:
                 print("Invalid action was chosen!")
@@ -58,11 +74,13 @@ if __name__ == "__main__":
                 print("Route you chose does not exist!")
             except RideAlreadyExist:
                 print("There is already ride scheduled for this hour!")
+            except RideNotExist:
+                print("The ride you entered does not exist!")
 
-    # except Exception:
-    #     print("Error occurred!")
+    except Exception:
+        print("Error occurred!")
 
-    # finally:
+    finally:
         with open('bus_company.pickle', 'wb') as fh:
             pickle.dump(bus_company, fh)
 

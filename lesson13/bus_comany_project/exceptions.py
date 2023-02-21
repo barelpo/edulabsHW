@@ -16,3 +16,7 @@ class RouteNotExist(Exception):
 
 class RideAlreadyExist(Exception):
     pass
+
+
+class RideNotExist(Exception):
+    pass
