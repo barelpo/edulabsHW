@@ -4,12 +4,13 @@ import string
 class AlphaBetIterator:
 
     def __init__(self, letter: str):
-        if letter.islower() or letter.isupper():
+        if (letter.islower() or letter.isupper()) and len(letter) == 1:
             self._letter = letter
         else:
             raise ValueError
         self._lower_case = list(string.ascii_lowercase)
         self._upper_case = list(string.ascii_uppercase)
+        self._iter_index: int = 0
 
     def __iter__(self):
         for i, letter in enumerate(self._lower_case):
@@ -31,12 +32,12 @@ class AlphaBetIterator:
 if __name__ == "__main__":
     while True:
         try:
-            char = input("insert a letter: ")
+            char = input("insert a letter: ").strip()
             my_alphabet = AlphaBetIterator(char)
-            for i in my_alphabet:
-                print(i)
-            for i in my_alphabet:
-                print(i)
+            for j in my_alphabet:
+                print(j)
+            for j in my_alphabet:
+                print(j)
             break
         except ValueError:
             print("Input must be english letter!")
