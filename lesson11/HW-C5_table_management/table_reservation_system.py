@@ -1,6 +1,7 @@
 from table_class import Table
 import pprint
 import datetime
+from exceptions import *
 
 
 class TableReservationSystem:
@@ -15,8 +16,12 @@ class TableReservationSystem:
     def get_available_tables(self, num_of_people: int) -> dict[int, list[int]]:
         available_tables: dict[int, int] = {}
         for table in self._table_log:
+            schedule_res_list = list(self._table_log[table].get_reservation_log().keys())
             if self._table_log[table].is_available() and self._table_log[table].get_seats_num() >= num_of_people:
                 available_tables[table] = self._table_log[table].get_seats_num()
+                if len(schedule_res_list) > 0:
+                    if schedule_res_list[0] - datetime.datetime.now() < self._max_time_limit:
+                        available_tables.pop(table)
         sorted_table_list = sorted(zip(available_tables.values(), available_tables.keys()))
         available_tables_sorted: dict[int, list[int]] = {}
         for table in sorted_table_list:
@@ -50,24 +55,21 @@ class TableReservationSystem:
         if table_id not in self._table_log:
             self._table_log[table_id] = Table(table_id, seats_num, self._max_time_limit, table_location,
                                               less_pref_place)
-            return True
         else:
-            return False
+            raise TableAlreadyExists()
 
-    def reserve_a_table(self, table_id: int, num_of_people: int) -> bool:
+    def reserve_a_table(self, table_id: int, num_of_people: int):
         if self._table_log[table_id].get_seats_num() >= num_of_people and \
                 self._table_log[table_id].is_available() is True:
             self._table_log[table_id].reserve_a_table(num_of_people)
-            return True
         else:
-            return False
+            raise CanNotReserveTable()
 
-    def release_a_table(self, table_id) -> bool:
+    def release_a_table(self, table_id: int):
         if self._table_log[table_id].is_available() is False:
             self._table_log[table_id].release_a_table()
-            return True
         else:
-            return False
+            raise CanNotReleaseTable()
 
     def get_tables_within_time_limit(self, max_waiting_time_str: str, num_of_people: int) -> list[int] | bool:
         if ':' in max_waiting_time_str:
@@ -97,30 +99,16 @@ class TableReservationSystem:
             self._table_log[table].update_time_limit(new_time_limit)
         return True
 
+    def add_future_reservation(self, date_time: datetime.datetime, name: str, table_id: int, num_of_guests: int):
+        if self._table_log[table_id].add_future_reservation(date_time, name, num_of_guests):
+            pass
+        else:
+            raise CanNotReserveTable()
 
-if __name__ == '__main__':
-    hudson = TableReservationSystem('HUDSON', '1:30')
-    hudson.add_a_table(1, 4, 'inside')
-    hudson.add_a_table(2, 8, 'terrace')
-    hudson.add_a_table(3, 3, 'inside', 'near a toilet')
-    hudson.add_a_table(4, 6, 'inside')
-    hudson.add_a_table(5, 5, 'terrace')
-    hudson.add_a_table(6, 4, 'inside', 'near the exit')
-    hudson.add_a_table(7, 2, 'terrace')
-    hudson.add_a_table(8, 2, 'bar')
-    hudson.add_a_table(9, 2, 'bar')
-    hudson.add_a_table(10, 2, 'bar', 'nest to the kitchen')
-    hudson.add_a_table(11, 25, 'vip room')
-    # print(hudson.get_tables_time_limit())
-    # print(hudson._table_log[7]._time_limit)
-    hudson.update_tables_time_limit("1:45")
-    # print(hudson._table_log[1]._time_limit)
-    # pprint.pprint(hudson.get_available_tables(4))
-    hudson.reserve_a_table(2, 7)
-    # pprint.pprint(hudson.get_available_tables(4))
-    hudson.reserve_a_table(8, 2)
-    pprint.pprint(hudson.get_available_tables(1))
-    hudson.reserve_a_table(4, 4)
-    hudson.release_a_table(8)
-    pprint.pprint(hudson.get_soonest_available_tables(2))
-    # pprint.pprint(hudson.get_tables_within_time_limit('120', 2))
+    def get_table_log(self) -> dict[int, Table]:
+        return self._table_log
+
+
+
+
+
