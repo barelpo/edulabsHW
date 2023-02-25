@@ -14,7 +14,7 @@ class DateIterator:
 
 
 if __name__ == "__main__":
-    temp = DateIterator(datetime.date(year=2024, month=11, day=13))
+    temp = DateIterator(datetime.date(year=2024, month=11, day=1))
     for elem in temp.my_gen():
         print(elem)
     for elem in temp.my_gen():
